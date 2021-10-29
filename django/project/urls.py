@@ -5,13 +5,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
-from helps.viewsets import AnimalViewSet
+from reports.viewsets import ReportViewSet
 
 router = routers.DefaultRouter()
-router.register(r'helps', AnimalViewSet, basename='help')
+router.register(r'reports', ReportViewSet, basename='report')
 
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path('ajudaai/v1/', include(router.urls)),
 ]
 
 if settings.DEBUG:

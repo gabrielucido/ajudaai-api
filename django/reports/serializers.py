@@ -1,12 +1,12 @@
 from rest_framework import serializers
 
-from animals.models import Animal
+from reports.models import Report
 
 
-class AnimalSerializer(serializers.ModelSerializer):
-    """Animal Serializer."""
+class ReportSerializer(serializers.ModelSerializer):
+    """Report Serializer."""
 
     class Meta:
         """Serializer Options."""
-        model = Animal
+        model = Report
         fields = ['id', 'name', 'created_at', 'updated_at', 'description']

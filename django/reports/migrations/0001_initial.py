@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Animal',
+            name='Report',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Criado Em')),
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=255, null=True, verbose_name='Descrição')),
             ],
             options={
-                'verbose_name': 'Animal',
+                'verbose_name': 'Report',
                 'verbose_name_plural': 'Animais',
             },
         ),

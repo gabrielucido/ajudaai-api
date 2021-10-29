@@ -29,7 +29,7 @@ EXTERNAL_APPS = [
 
 LOCAL_APPS = [
     'core',
-    'animals',
+    'reports',
 ]
 
 REQUIRED_LAST_APPS = [

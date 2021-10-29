@@ -15,8 +15,6 @@ services:
       - .env
     environment:
       MODE: development
-    depends_on:
-      - postgres
     ports:
       - 9000:9000
 
