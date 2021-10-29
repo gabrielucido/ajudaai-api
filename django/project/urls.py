@@ -5,10 +5,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
-from animals.viewsets import AnimalViewSet
+from helps.viewsets import AnimalViewSet
 
 router = routers.DefaultRouter()
-router.register(r'animals', AnimalViewSet, basename='animal')
+router.register(r'helps', AnimalViewSet, basename='help')
 
 urlpatterns = [
     path('api/', include(router.urls)),
