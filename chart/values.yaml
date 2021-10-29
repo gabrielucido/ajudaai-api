@@ -1,0 +1,100 @@
+# Default values for chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+revisionHistoryLimit: 10
+
+strategy:
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+  type: RollingUpdate
+
+nginx:
+  enable: false
+
+image:
+  pullPolicy: IfNotPresent
+  app:
+    repository: harbor01.viavarejo.com.br/my-harbor/my-project-name
+    suffix: ""
+    tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+dnsPolicy: ClusterFirst
+restartPolicy: Always
+schedulerName: default-scheduler
+securityContext: {}
+terminationGracePeriodSeconds: 30
+
+service:
+  name: app
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: true
+  secretName: viavarejo-tls
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  annotationsNginx:
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 30m
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+livenessProbe:
+  httpGet:
+    path: /api
+    port: app
+    scheme: HTTP
+  initialDelaySeconds: 60
+  timeoutSeconds: 15
+  periodSeconds: 30
+  successThreshold: 1
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /api
+    port: app
+    scheme: HTTP
+  initialDelaySeconds: 60
+  timeoutSeconds: 15
+  periodSeconds: 60
+  successThreshold: 1
+  failureThreshold: 3
+
+nodeSelector:
+  agentpool: dxttoolapp
+
+tolerations: []
+
+affinity: {}
+
+secrets:
+  - name: my-project-credentials
+
+configmap:
+  data:
+    MODE: "production"
+    DATABASE_SYSTEM: "postgres"
+    POSTGRES_HOST: "pgsh-corp.dc.nova"
+    POSTGRES_PORT: 5432
+
+containers:
+  app: my-project-django

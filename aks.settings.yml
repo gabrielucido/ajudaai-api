@@ -1,0 +1,16 @@
+environments:
+  default:
+    name: akspriv-mytribetools-prd
+    resource_group: rg-mytribetools-app-prd
+    service_principal_credential_id: aks-sp
+    subscription_id: 5824e3a4-a2df-4ce9-85aa-6977b596785f
+  hlg:
+    name: akspriv-mytribetools-prd
+    resource_group: rg-mytribetools-app-prd
+    service_principal_credential_id: aks-sp
+    subscription_id: 5824e3a4-a2df-4ce9-85aa-6977b596785
+  prd:
+    name: akspriv-mytribetools-prd
+    resource_group: rg-mytribetools-app-prd
+    service_principal_credential_id: aks-sp
+    subscription_id: 5824e3a4-a2df-4ce9-85aa-6977b596785

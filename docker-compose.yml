@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  django:
+    container_name: myprojecttag_django
+    build:
+      context: .
+      args:
+        MODE: development
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
+    volumes:
+      - ./django/:/app/
+    env_file:
+      - .env
+    environment:
+      MODE: development
+    depends_on:
+      - postgres
+    ports:
+      - 8000:8000
+
+  postgres:
+    container_name: myprojecttag_postgres
+    restart: always
+    image: postgres:11-alpine
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
