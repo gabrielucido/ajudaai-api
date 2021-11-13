@@ -9,4 +9,4 @@ class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         """Serializer Options."""
         model = Report
-        fields = ['id', 'name', 'created_at', 'updated_at', 'description']
+        fields = '__all__'
