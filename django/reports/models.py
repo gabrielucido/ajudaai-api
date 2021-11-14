@@ -13,9 +13,9 @@ class Report(BaseFields):
     """
     title = models.CharField(verbose_name='Nome', max_length=128, null=False, blank=False)
     description = models.CharField(verbose_name='Descrição', max_length=255, null=True, blank=False)
-    comments = models.ManyToManyField(Comentary, verbose_name='Comentários', related_name='reports')
+    comments = models.ManyToManyField(Comentary, verbose_name='Comentários', related_name='reports', null=True)
     relevance = models.IntegerField(verbose_name='Ajudometro', blank=True, null=False, default=0)
-    #image
+    #image =
 
     def __str__(self):
       return self.name
