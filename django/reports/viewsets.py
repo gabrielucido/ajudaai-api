@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from reports.serializers import ReportSerializer
-from reports.models import Report
+from reports.models import Report, Vote
 
 
 class ReportViewSet(viewsets.ModelViewSet):
@@ -15,17 +15,14 @@ class ReportViewSet(viewsets.ModelViewSet):
             url_path='rate', url_name='rate')
     def rate(self, request, pk=None):  # pylint:disable=unused-argument
         """
-        Increment or decrement a report relevance.
+        Upvote or Downvote a report.
         """
         report = self.get_object()
-        increment = request.data.get('increment', None)
-        if increment == None:
+        upvote = request.data.get('upvote', None)
+        if upvote == None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        if increment:
-            report.relevance += 15
-        else:
-            report.relevance -= 15
-        report.save()
+        vote = Vote(report=report, upvote=upvote)
+        vote.save()
         return Response(ReportSerializer(report).data, status=status.HTTP_200_OK)
 
     serializer_class = ReportSerializer
