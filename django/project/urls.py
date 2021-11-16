@@ -1,5 +1,6 @@
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
+from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -12,6 +13,7 @@ router.register(r'reports', ReportViewSet, basename='report')
 
 urlpatterns = [
     path('ajudaai/v1/', include(router.urls)),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:

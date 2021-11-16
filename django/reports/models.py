@@ -40,7 +40,8 @@ class Vote(BaseFields):
     """
     report = models.ForeignKey(Report, verbose_name='Ajudaai', on_delete=models.CASCADE, related_name='votes', blank=False, null=False)
     upvote = models.BooleanField(verbose_name='Upvote', blank=True, null=False, default=True)
-    #token = models.CharField(verbose_name='token', blank=False, null=False)
+    token = models.CharField(verbose_name='token', max_length=64, blank=False, null=False)
+
     class Meta:
         """
         Model Options.
