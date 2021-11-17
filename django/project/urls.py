@@ -6,10 +6,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
-from reports.viewsets import ReportViewSet
+from issues.viewsets import IssueViewSet
+from comments.viewsets import CommentaryViewSet
 
 router = routers.DefaultRouter()
-router.register(r'reports', ReportViewSet, basename='report')
+router.register(r'issues', IssueViewSet, basename='issue')
+router.register(r'comments', CommentaryViewSet, basename='commentary')
 
 urlpatterns = [
     path('ajudaai/v1/', include(router.urls)),
@@ -26,7 +28,7 @@ if settings.DEBUG:
         description="API for My Project.",
         version="1.0.0"
     ), name='openapi-schema'),
-        path('swagger-ui/', TemplateView.as_view(
+        path('', TemplateView.as_view(
             template_name='swagger-ui.html',
             extra_context={'schema_url': 'openapi-schema'}
         ), name='swagger-ui')]

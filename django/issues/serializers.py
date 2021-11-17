@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from reports.models import Report, Vote
+from issues.models import Issue, Vote
 
 
-class ReportSerializer(serializers.ModelSerializer):
-    """Report Serializer."""
+class IssueSerializer(serializers.ModelSerializer):
+    """Issue Serializer."""
 
     upvotes = serializers.IntegerField(source='get_upvotes', read_only=True)
     downvotes = serializers.IntegerField(
@@ -14,12 +14,12 @@ class ReportSerializer(serializers.ModelSerializer):
     def get_vote(self, obj):
         token = self.context.get('token', False)
         if token:
-            vote = Vote.objects.filter(report=obj, token=token)
+            vote = Vote.objects.filter(issue=obj, token=token)
             if vote.exists():
                 return vote.first().upvote
         return None
 
     class Meta:
         """Serializer Options."""
-        model = Report
+        model = Issue
         fields = '__all__'

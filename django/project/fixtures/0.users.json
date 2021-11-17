@@ -1,9 +1,9 @@
 [
 {
-  "model": "auth.user",
+  "model": "users.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$216000$XRcPwTjb9iys$KKfY82A6zItrGEhlHITNYZFVMbCpXYVBQ9jpXrTey/M=",
+    "password": "pbkdf2_sha256$216000$3Bu3c0CyDXTv$8oMtbFrLkqSH4qasvNzCnLTzZP6xYTZrzHldeU+DQg4=",
     "last_login": null,
     "is_superuser": true,
     "username": "admin",
@@ -12,7 +12,7 @@
     "email": "",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2021-10-08T00:08:15.298Z",
+    "date_joined": "2021-11-17T16:19:36.123Z",
     "groups": [],
     "user_permissions": []
   }

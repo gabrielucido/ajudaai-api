@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from reports.models import Report, Vote
+from reports.models import Report
 
 
 admin.site.register(Report)
-admin.site.register(Vote)

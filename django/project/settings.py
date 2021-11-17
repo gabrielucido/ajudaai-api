@@ -29,7 +29,10 @@ EXTERNAL_APPS = [
 
 LOCAL_APPS = [
     'core',
+    'issues',
     'reports',
+    'comments',
+    'users',
 ]
 
 REQUIRED_LAST_APPS = [
@@ -104,6 +107,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
@@ -153,4 +158,4 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 LOGIN_URL = "/admin"
-LOGIN_REDIRECT_URL = "/api"
+LOGIN_REDIRECT_URL = "/ajudaai/v1/"
