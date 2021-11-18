@@ -1,7 +1,6 @@
 from django.db import models
 
 from core.models import BaseFields
-from comments.models import Commentary
 
 
 class Issue(BaseFields):
@@ -10,7 +9,6 @@ class Issue(BaseFields):
     """
     title = models.CharField(verbose_name='Nome', max_length=128, null=False, blank=False)
     description = models.CharField(verbose_name='Descrição', max_length=255, null=True, blank=False)
-    comments = models.ManyToManyField(Commentary, verbose_name='Comentários', related_name='issues', blank=True)
     image = models.ImageField(upload_to='reports/%Y/%m/%d/', blank=True, null=True)
     visible = models.BooleanField(verbose_name='Visível', blank=True, null=False, default=True)
 
