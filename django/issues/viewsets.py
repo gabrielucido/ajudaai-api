@@ -2,6 +2,7 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from comments.serializers import CommentarySerializer
 from issues.serializers import IssueSerializer
 from issues.models import Issue, Vote
 
@@ -41,6 +42,17 @@ class IssueViewSet(viewsets.ModelViewSet):
             vote = Vote(issue=issue, upvote=upvote, token=token)
             vote.save()
         return Response(IssueSerializer(issue, context=self.get_serializer_context()).data,
+                        status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['get'], name='Issue Comments',
+            url_path='comments', url_name='comments')
+    def comments(self, request, pk=None):  # pylint:disable=unused-argument
+        """
+        Get comments of a issue.
+        """
+        issue = self.get_object()
+        comments = issue.comments.filter(visible=True)
+        return Response(CommentarySerializer(comments, many=True).data,
                         status=status.HTTP_200_OK)
 
     serializer_class = IssueSerializer
