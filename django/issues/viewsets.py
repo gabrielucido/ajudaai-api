@@ -1,3 +1,5 @@
+
+
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -5,8 +7,7 @@ from rest_framework.response import Response
 from comments.serializers import CommentarySerializer
 from issues.serializers import IssueSerializer
 from issues.models import Issue, Vote
-
-
+from issues.pagination import CustomPagination
 class IssueViewSet(viewsets.ModelViewSet):
     """
     API endpoint to Issues.
@@ -56,5 +57,6 @@ class IssueViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_200_OK)
 
     serializer_class = IssueSerializer
+    pagination_class = CustomPagination
     permission_classes = [permissions.AllowAny]
     queryset = Issue.objects.all()
