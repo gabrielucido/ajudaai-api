@@ -1,14 +1,13 @@
 from rest_framework import serializers
 
-from issues.models import Issue, Vote
+from issues.models import Issue, Vote, IssueSearchFields
 
 
 class IssueSerializer(serializers.ModelSerializer):
     """Issue Serializer."""
 
     upvotes = serializers.IntegerField(source='get_upvotes', read_only=True)
-    downvotes = serializers.IntegerField(
-        source='get_downvotes', read_only=True)
+    downvotes = serializers.IntegerField(source='get_downvotes', read_only=True)
     vote = serializers.SerializerMethodField(read_only=True)
 
     def get_vote(self, obj):
@@ -23,3 +22,8 @@ class IssueSerializer(serializers.ModelSerializer):
         """Serializer Options."""
         model = Issue
         fields = '__all__'
+
+class IssueSearchFieldsSerializer(serializers.ModelSerializer):
+    class Meta:
+         model = IssueSearchFields
+         fields = ['title', 'description', 'page']
