@@ -11,9 +11,10 @@ from comments.viewsets import CommentaryViewSet
 
 router = routers.DefaultRouter()
 router.register(r'issues', IssueViewSet, basename='issue')
-router.register(r'comments', CommentaryViewSet, basename='commentary')
+#router.register(r'comments', CommentaryViewSet, basename='commentary')
 
 urlpatterns = [
+    path('', include('users.urls')),
     path('ajudaai/v1/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]

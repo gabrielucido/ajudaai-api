@@ -23,8 +23,7 @@ class IssueSerializer(serializers.ModelSerializer):
         """Serializer Options."""
         model = Issue
         fields = '__all__'
-
-class IssueSearchFieldsSerializer(serializers.ModelSerializer):
-    class Meta:
-         model = IssueSearchFields
-         fields = ['title', 'description', 'page']
+        lookup_field = 'slug'
+        extra_kwargs = {
+            'url': {'lookup_field': 'slug'}
+        }

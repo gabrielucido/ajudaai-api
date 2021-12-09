@@ -31,7 +31,6 @@ EXTERNAL_APPS = [
 LOCAL_APPS = [
     'core',
     'issues',
-    'reports',
     'comments',
     'users',
 ]
@@ -154,6 +153,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 6,
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'DATETIME_FORMAT': '%d/%m/%Y %H:%M:%S',
     'DATE_FORMAT': '%d/%m/%Y',

@@ -1,4 +1,3 @@
-from django.db.models import query
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -7,7 +6,7 @@ import json
 from unidecode import unidecode
 
 from comments.serializers import CommentarySerializer
-from issues.serializers import IssueSerializer, IssueSearchFieldsSerializer
+from issues.serializers import IssueSerializer
 from issues.models import Issue, Vote
 
 
@@ -26,7 +25,7 @@ class IssueViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'], name='Issue Rate',
             url_path='rate', url_name='rate')
-    def rate(self, request, pk=None):  # pylint:disable=unused-argument
+    def rate(self, request, slug=None):  # pylint:disable=unused-argument
         """
         Upvote or Downvote a issue.
         """
@@ -50,7 +49,7 @@ class IssueViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'], name='Issue Comments',
             url_path='comments', url_name='comments')
-    def comments(self, request, pk=None):  # pylint:disable=unused-argument
+    def comments(self, request, slug=None):  # pylint:disable=unused-argument
         """
         Get comments of a issue.
         """
@@ -62,6 +61,8 @@ class IssueViewSet(viewsets.ModelViewSet):
     serializer_class = IssueSerializer
     permission_classes = [permissions.AllowAny]
     queryset = Issue.objects.all()
+    lookup_field = 'slug'
+
 
     @action(detail=False, methods=['post'], name='Search similar issues',
             url_path='search', url_name='search')

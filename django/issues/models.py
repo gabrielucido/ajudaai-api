@@ -1,3 +1,5 @@
+from autoslug import AutoSlugField
+
 from django.db import models
 
 from core.models import BaseFields
@@ -11,6 +13,7 @@ class Issue(BaseFields):
     description = models.CharField(verbose_name='Descrição', max_length=255, null=True, blank=False)
     image = models.ImageField(upload_to='reports/%Y/%m/%d/', blank=True, null=True)
     visible = models.BooleanField(verbose_name='Visível', blank=True, null=False, default=True)
+    slug = AutoSlugField(populate_from='title', unique=True, always_update=False)
 
     def __str__(self):
       return self.title
