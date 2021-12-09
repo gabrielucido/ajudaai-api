@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from issues.models import Issue, Vote
+from issues.models import Issue, Vote, IssueSearchFields
 
 
 class IssueSerializer(serializers.ModelSerializer):
@@ -23,3 +23,8 @@ class IssueSerializer(serializers.ModelSerializer):
         """Serializer Options."""
         model = Issue
         fields = '__all__'
+
+class IssueSearchFieldsSerializer(serializers.ModelSerializer):
+    class Meta:
+         model = IssueSearchFields
+         fields = ['title', 'description', 'page']

@@ -28,6 +28,21 @@ class Issue(BaseFields):
         verbose_name = 'Problema'
         verbose_name_plural = 'Problemas'
 
+class IssueSearchFields(BaseFields):
+    """
+    Issue Search Fields Model.
+    """
+    title = models.CharField(verbose_name='Nome', max_length=128, null=False, blank=False)
+    description = models.CharField(verbose_name='Descrição', max_length=255, null=False, blank=False)
+    page = models.IntegerField(verbose_name="Página", null=True,blank=False)
+    def __str__(self):
+      return self.title
+    class Meta:
+        """
+        Model Options.
+        """
+        verbose_name = 'Pesquisa'
+        verbose_name_plural = 'Pesquisas'
 
 class Vote(BaseFields):
     """

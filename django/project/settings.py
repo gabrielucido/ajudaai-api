@@ -25,6 +25,7 @@ EXTERNAL_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'watson'
 ]
 
 LOCAL_APPS = [
@@ -55,7 +56,10 @@ DJANGO_MIDDLEWARES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-OTHERS_MIDDLEWARES = []
+OTHERS_MIDDLEWARES = [
+    'watson.middleware.SearchContextMiddleware',
+]
+WATSON_BACKEND = "watson.backends.AdaptiveSearchBackend"
 
 MIDDLEWARE = PRE_COMMOM_MIDDLEWARES + DJANGO_MIDDLEWARES + OTHERS_MIDDLEWARES
 
