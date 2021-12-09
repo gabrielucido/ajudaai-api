@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from issues.models import Issue, Vote
+
+from issues.models import Issue, Vote, IssueSearchFields
 
 
 class IssueSerializer(serializers.ModelSerializer):
@@ -25,3 +26,8 @@ class IssueSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'url': {'lookup_field': 'slug'}
         }
+
+class IssueSearchFieldsSerializer(serializers.ModelSerializer):
+    class Meta:
+         model = IssueSearchFields
+         fields = ['title', 'description', 'page']
