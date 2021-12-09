@@ -6,7 +6,7 @@ import json
 from unidecode import unidecode
 
 from comments.serializers import CommentarySerializer
-from issues.serializers import IssueSerializer
+from issues.serializers import IssueSerializer, IssueSearchFieldsSerializer
 from issues.models import Issue, Vote
 
 
@@ -30,7 +30,7 @@ class IssueViewSet(viewsets.ModelViewSet):
         Upvote or Downvote a issue.
         """
         issue = self.get_object()
-        upvote = request.data.get('upvote', None)
+        upvote = request.data.get__name__('upvote', None)
         token = request.data.get('token', None)
         if upvote == None or token == None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
