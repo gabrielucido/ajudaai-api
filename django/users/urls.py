@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 from django.urls import re_path
 from rest_framework.authtoken import views
 

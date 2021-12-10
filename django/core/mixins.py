@@ -1,7 +1,12 @@
 # pylint:disable=unused-argument
+# pylint: disable=no-self-use
 from rest_framework import permissions
 
+
 class ActionPermissionMixin(permissions.BasePermission):
+    """
+    Action permission class
+    """
 
     def has_permission(self, request, view):
         if request.user.is_superuser:
@@ -10,7 +15,7 @@ class ActionPermissionMixin(permissions.BasePermission):
             return self.list(request)
         if view.action == 'create':
             return self.create(request)
-        self.extra_actions(self, request)
+        self.extra_actions(request)
         return True
 
     def has_object_permission(self, request, view, obj):
@@ -24,7 +29,7 @@ class ActionPermissionMixin(permissions.BasePermission):
             return self.partial_update(request, obj)
         if view.action == 'destroy':
             return self.destroy(request, obj)
-        self.extra_obj_actions(self, request, obj)
+        self.extra_obj_actions(request, obj)
         return False
 
     def extra_actions(self, request):
