@@ -9,7 +9,7 @@ from issues.serializers import IssueSerializer
 from issues.models import Issue, Vote
 
 
-class IssueViewSet(viewsets.ModelViewSet):
+class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
     """
     API endpoint to Issues.
     """
@@ -31,7 +31,7 @@ class IssueViewSet(viewsets.ModelViewSet):
         issue = self.get_object()
         upvote = request.data.get('upvote', None)
         token = request.data.get('token', None)
-        if upvote == None or token == None:
+        if upvote is None or token is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         try:
             vote = Vote.objects.get(issue=issue, token=token)
