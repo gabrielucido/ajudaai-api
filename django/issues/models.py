@@ -14,15 +14,19 @@ class Issue(BaseFields):
     image = models.ImageField(upload_to='reports/%Y/%m/%d/', blank=True, null=True)
     visible = models.BooleanField(verbose_name='Visível', blank=True, null=False, default=True)
     slug = AutoSlugField(populate_from='title', unique=True, always_update=False)
+    
 
     def __str__(self):
       return self.title
 
+
     def get_upvotes(self):
         return self.votes.filter(upvote=True).count()
 
+
     def get_downvotes(self):
         return self.votes.filter(upvote=False).count()
+
 
     class Meta:
         """

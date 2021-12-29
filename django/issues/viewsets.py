@@ -1,4 +1,4 @@
-
+import base64
 
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
@@ -21,6 +21,34 @@ class IssueViewSet(viewsets.ModelViewSet):
             token = self.request.data.get('token')
         context.update({'token': token})
         return context
+
+
+    def decode_image(self, encoded_image):
+        _format, img_base64_string = encoded_image.split(';base64,')
+        extension = _format.split('/')[-1]
+        img_decoded = base64.decodestring(img_base64_string)
+        image_result = open('issue.{}'.fomrt(extension), 'wb')
+        image_result.write(img_decode)      
+        return image_result
+
+    def create(self, request):
+        """
+        Create a Issue
+        """
+        data = request.data
+        
+        if "image" in data: 
+            issue = Issue.objects.create(title=data['title'], 
+                                         description=data['description'],
+                                         image=data['imageSrc'])
+        else:
+            issue = Issue.objects.create(title=data['title'], 
+                                        description=data['description'],
+                                        image=None)                                                                      
+        issue.save()
+        serializer = IssueSerializer(issue)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
     @action(detail=True, methods=['post'], name='Issue Rate',
             url_path='rate', url_name='rate')
