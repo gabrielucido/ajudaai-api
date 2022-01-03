@@ -8,7 +8,7 @@ from unidecode import unidecode
 from comments.serializers import CommentarySerializer
 from issues.serializers import IssueSerializer, IssueSearchFieldsSerializer
 from issues.models import Issue, Vote
-
+from rest_framework.pagination import PageNumberPagination
 
 class IssueViewSet(viewsets.ModelViewSet):
     """
@@ -74,7 +74,7 @@ class IssueViewSet(viewsets.ModelViewSet):
 
             query_title = request.data['title']
             query_description = request.data['description']
-
+            
             #Case two strings equals to ""
             # if (query_description == "" and query_title == ""):
             
@@ -100,7 +100,13 @@ class IssueViewSet(viewsets.ModelViewSet):
 
             search_results = watson.filter(all_issues_parsed, result_query, ranking=True)
 
-            return Response(IssueSerializer(search_results, many=True).data, status=status.HTTP_200_OK)
+            paginator = PageNumberPagination()
+            page = paginator.paginate_queryset(search_results, request)
+            serializer = IssueSerializer(page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+            
+
+
 
     def get_serializer_class(self):
         if self.action == 'search':

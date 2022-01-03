@@ -30,4 +30,4 @@ class IssueSerializer(serializers.ModelSerializer):
 class IssueSearchFieldsSerializer(serializers.ModelSerializer):
     class Meta:
          model = IssueSearchFields
-         fields = ['title', 'description', 'page']
+         fields = ['title', 'description']
