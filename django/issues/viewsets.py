@@ -1,5 +1,3 @@
-import base64
-
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -22,33 +20,21 @@ class IssueViewSet(viewsets.ModelViewSet):
         context.update({'token': token})
         return context
 
-
-    def decode_image(self, encoded_image):
-        _format, img_base64_string = encoded_image.split(';base64,')
-        extension = _format.split('/')[-1]
-        img_decoded = base64.decodestring(img_base64_string)
-        image_result = open('issue.{}'.fomrt(extension), 'wb')
-        image_result.write(img_decode)      
-        return image_result
-
     def create(self, request):
         """
         Create a Issue
         """
         data = request.data
-        
-        if "image" in data: 
-            issue = Issue.objects.create(title=data['title'], 
+        if "image" in data:
+            issue = Issue.objects.create(title=data['title'],
                                          description=data['description'],
                                          image=data['imageSrc'])
         else:
-            issue = Issue.objects.create(title=data['title'], 
-                                        description=data['description'],
-                                        image=None)                                                                      
+            issue = Issue.objects.create(title=data['title'],
+                                         description=data['description'])
         issue.save()
         serializer = IssueSerializer(issue)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
     @action(detail=True, methods=['post'], name='Issue Rate',
             url_path='rate', url_name='rate')
@@ -59,7 +45,7 @@ class IssueViewSet(viewsets.ModelViewSet):
         issue = self.get_object()
         upvote = request.data.get('upvote', None)
         token = request.data.get('token', None)
-        if upvote == None or token == None:
+        if upvote is None or token is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         try:
             vote = Vote.objects.get(issue=issue, token=token)

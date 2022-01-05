@@ -11,22 +11,18 @@ class Issue(BaseFields):
     """
     title = models.CharField(verbose_name='Nome', max_length=128, null=False, blank=False)
     description = models.CharField(verbose_name='Descrição', max_length=255, null=True, blank=False)
-    image = models.ImageField(upload_to='reports/%Y/%m/%d/', blank=True, null=True)
+    image = models.TextField(verbose_name='Image', default="")
     visible = models.BooleanField(verbose_name='Visível', blank=True, null=False, default=True)
     slug = AutoSlugField(populate_from='title', unique=True, always_update=False)
-    
 
     def __str__(self):
-      return self.title
-
+        return self.title
 
     def get_upvotes(self):
         return self.votes.filter(upvote=True).count()
 
-
     def get_downvotes(self):
         return self.votes.filter(upvote=False).count()
-
 
     class Meta:
         """
@@ -40,7 +36,9 @@ class Vote(BaseFields):
     """
     Vote Model.
     """
-    issue = models.ForeignKey(Issue, verbose_name='Problema', on_delete=models.CASCADE, related_name='votes', blank=False, null=False)
+    issue = models.ForeignKey(Issue, verbose_name='Problema',
+                              on_delete=models.CASCADE, related_name='votes',
+                              blank=False, null=False)
     upvote = models.BooleanField(verbose_name='Upvote', blank=True, null=False, default=True)
     token = models.CharField(verbose_name='token', max_length=64, blank=False, null=False)
 
