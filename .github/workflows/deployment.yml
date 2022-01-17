@@ -5,25 +5,15 @@ on: [push]
 jobs:
   build:
     runs-on: self-hosted
-    strategy:
-      matrix:
-        python-version: [3.9]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Seting up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install Dependencies
+      - name: Run Server
         run: |
-            python -m pip install --upgrade pip
-            pip install -r docker/requirements/prod.txt
+            cp .env.sample .env
 
       - name: Run Server
         run: |
-            cd django
-            python manage.py runserver 9000
+            docker-compose up -d
