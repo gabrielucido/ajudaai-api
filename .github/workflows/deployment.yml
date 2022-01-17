@@ -1,38 +1,22 @@
 name: Deployment
 
-on: [push]
+on:
+  push:
+    branches:
+        - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.9]
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Seting up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-    
-      - uses: actions/cache@v2
-        with:
-          path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles('dev.txt') }}
-
-      - name: Install Dependencies
+      - name: Setup dotenv
         run: |
-            python -m pip install --upgrade pip
-            pip install -r docker/requirements/dev.txt
+            cp .env.sample .env
 
-      - name: Running Tests
+      - name: Run server
         run: |
-            python django/manage.py test
-
-      - name: Running Linting 
-        run: |
-            cd django
-            prospector .
+            docker-compose up -d
