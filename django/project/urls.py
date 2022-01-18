@@ -5,12 +5,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from users.viewsets import CreateAnonUser
 
 from issues.viewsets import IssueViewSet
 from comments.viewsets import CommentaryViewSet  # pylint: disable=unused-import
 
 router = routers.DefaultRouter()
 router.register(r'issues', IssueViewSet, basename='issue')
+router.register(r'token-anon', CreateAnonUser, basename='token-anon')
 # router.register(r'comments', CommentaryViewSet, basename='commentary')
 
 urlpatterns = [
