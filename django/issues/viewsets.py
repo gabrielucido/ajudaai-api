@@ -9,16 +9,22 @@ from issues.models import Issue, Vote
 
 
 class IssueFilter(filters.FilterSet):
+    """
+    Filters to the Issue's endpoint
+    """
     title = filters.CharFilter(field_name="title", lookup_expr="icontains", label="Titulo da Issue")
     description = filters.CharFilter(field_name="description", lookup_expr="icontains", label="Descrição")
     start_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="gt", label="Data de inicio")
     end_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="lt", label="Data final")
 
     class Meta:
+        """
+        Filter options
+        """
         model = Issue
         fields = ['title', 'description', 'start_date', 'end_date']
 
- 
+
 class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
     """
     API endpoint to Issues.
@@ -29,9 +35,9 @@ class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
         token = self.request.GET.get('token', False)
         if self.request.data.get('token', False):
             token = self.request.data.get('token')
-        context.update({'token': token}) 
+        context.update({'token': token})
         return context
-        
+
     @action(detail=True, methods=['post'], name='Issue Rate',
             url_path='rate', url_name='rate')
     def rate(self, request, slug=None):  # pylint:disable=unused-argument
