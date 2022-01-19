@@ -22,3 +22,14 @@ jobs:
             docker-compose build
             docker-compose down
             docker-compose up -d
+
+      - name: Checkout front-end
+        uses: actions/checkout@v2
+        with:
+          repository: gabrielucido/ajudaai-frontend
+          path: frontend
+
+      - name: Run front-end server
+        run: |
+            npm install
+            npm run start
