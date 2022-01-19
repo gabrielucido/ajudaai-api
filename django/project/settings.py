@@ -25,6 +25,7 @@ EXTERNAL_APPS = [
     'autoslug',
     'corsheaders',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
 ]
 
@@ -159,6 +160,10 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'DATETIME_FORMAT': '%d/%m/%Y %H:%M:%S',
     'DATE_FORMAT': '%d/%m/%Y',
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+
+    ),
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
