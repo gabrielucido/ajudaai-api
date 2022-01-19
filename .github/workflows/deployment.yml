@@ -33,4 +33,5 @@ jobs:
         run: |
             cd frontend
             npm install
-            npm run start
+            npm run build
+            npm run serve
