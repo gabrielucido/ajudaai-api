@@ -4,10 +4,9 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
 from comments.serializers import CommentarySerializer
-from comments.models import Commentary
 from issues.serializers import IssueSerializer
 from issues.models import Issue, Vote
-from users.models import User
+
 
 class IssueFilter(filters.FilterSet):
     """
