@@ -4,9 +4,10 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
 from comments.serializers import CommentarySerializer
+from comments.models import Commentary
 from issues.serializers import IssueSerializer
 from issues.models import Issue, Vote
-
+from users.models import User
 
 class IssueFilter(filters.FilterSet):
     """
@@ -76,6 +77,6 @@ class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
     serializer_class = IssueSerializer
     permission_classes = [permissions.AllowAny]
     queryset = Issue.objects.all()
-    ilter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = IssueFilter
     lookup_field = 'slug'
