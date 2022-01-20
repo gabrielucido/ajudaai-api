@@ -162,7 +162,6 @@ REST_FRAMEWORK = {
     'DATE_FORMAT': '%d/%m/%Y',
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
-
     ),
 }
 
