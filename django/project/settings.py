@@ -3,7 +3,7 @@ import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'wi(c88*#)r*)c7#bgscj=b$pa$s8+7e*w9jdfcf=ti(bf-19k-'  # noqa
+SECRET_KEY = 'wi(c88*#)r*)c7#bgscj=b$pa$s8+7e*w9jdfcf=ti(bf-19k-'
 
 ALLOWED_HOSTS = ['*']
 
@@ -27,6 +27,7 @@ EXTERNAL_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
+    'watson'
 ]
 
 LOCAL_APPS = [
@@ -56,7 +57,10 @@ DJANGO_MIDDLEWARES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-OTHERS_MIDDLEWARES = []
+OTHERS_MIDDLEWARES = [
+    'watson.middleware.SearchContextMiddleware',
+]
+WATSON_BACKEND = "watson.backends.AdaptiveSearchBackend"
 
 MIDDLEWARE = PRE_COMMOM_MIDDLEWARES + DJANGO_MIDDLEWARES + OTHERS_MIDDLEWARES
 
