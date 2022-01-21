@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from autoslug import AutoSlugField
 
 from django.db import models

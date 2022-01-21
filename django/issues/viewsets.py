@@ -1,12 +1,28 @@
-
-
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django_filters import rest_framework as filters
 
 from comments.serializers import CommentarySerializer
 from issues.serializers import IssueSerializer
 from issues.models import Issue, Vote
+
+
+class IssueFilter(filters.FilterSet):
+    """
+    Filters to the Issue's endpoint
+    """
+    title = filters.CharFilter(field_name="title", lookup_expr="icontains", label="Titulo da Issue")
+    description = filters.CharFilter(field_name="description", lookup_expr="icontains", label="Descrição")
+    start_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="gt", label="Data de inicio")
+    end_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="lt", label="Data final")
+
+    class Meta:
+        """
+        Filter options
+        """
+        model = Issue
+        fields = ['title', 'description', 'start_date', 'end_date']
 
 
 class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
@@ -60,4 +76,6 @@ class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
     serializer_class = IssueSerializer
     permission_classes = [permissions.AllowAny]
     queryset = Issue.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = IssueFilter
     lookup_field = 'slug'
