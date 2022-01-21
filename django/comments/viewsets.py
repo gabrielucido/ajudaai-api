@@ -4,7 +4,7 @@ from comments.serializers import CommentarySerializer
 from comments.models import Commentary
 
 
-class CommentaryViewSet(viewsets.ModelViewSet):
+class CommentaryViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """
     API endpoint to Comments.
     """

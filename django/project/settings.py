@@ -1,4 +1,6 @@
 import os
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'wi(c88*#)r*)c7#bgscj=b$pa$s8+7e*w9jdfcf=ti(bf-19k-'
@@ -23,6 +25,7 @@ EXTERNAL_APPS = [
     'autoslug',
     'corsheaders',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
     'watson'
 ]
@@ -93,6 +96,10 @@ DATABASES = {
         'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
+# Covers regular testing and django-coverage preventing errors
+if 'test' in sys.argv or 'test/_coverage' in sys.argv:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+    DATABASES['default']['NAME'] = ':memory:'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -157,6 +164,9 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'DATETIME_FORMAT': '%d/%m/%Y %H:%M:%S',
     'DATE_FORMAT': '%d/%m/%Y',
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 
 CORS_ALLOW_ALL_ORIGINS = True

@@ -27,6 +27,7 @@ class IssueSerializer(serializers.ModelSerializer):
             'url': {'lookup_field': 'slug'}
         }
 
+
 class IssueSearchFieldsSerializer(serializers.ModelSerializer):
     class Meta:
          model = IssueSearchFields
