@@ -20,20 +20,17 @@ class IssueViewSet(viewsets.ModelViewSet):
         context.update({'token': token})
         return context
 
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
         """
         Create a Issue
         """
-        data = request.data
-        if "image" in data:
-            issue = Issue.objects.create(title=data['title'],
-                                         description=data['description'],
-                                         image=data['imageSrc'])
-        else:
-            issue = Issue.objects.create(title=data['title'],
-                                         description=data['description'])
-        issue.save()
-        serializer = IssueSerializer(issue)
+        if "image" in request.data:
+            request.data['image'] = request.data['imageSrc']
+            
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['post'], name='Issue Rate',
