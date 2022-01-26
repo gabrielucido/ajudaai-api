@@ -27,7 +27,8 @@ EXTERNAL_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
-    'watson'
+    'watson',
+    'djoser',
 ]
 
 LOCAL_APPS = [

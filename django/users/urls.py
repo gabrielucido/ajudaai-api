@@ -1,8 +1,10 @@
 # pylint: disable=invalid-name
 from rest_framework.authtoken import views
-from django.urls import re_path
+from django.conf.urls import url
+from django.urls import include
 
 app_name = 'users'
 urlpatterns = [
-    re_path(r'^token-auth/', views.obtain_auth_token)
+    url(r'^ajudaai/', include('djoser.urls')),
+    url(r'^ajudaai/', include('djoser.urls.authtoken')),
 ]
