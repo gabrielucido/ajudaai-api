@@ -20,19 +20,6 @@ class IssueViewSet(viewsets.ModelViewSet):
         context.update({'token': token})
         return context
 
-    def create(self, request, *args, **kwargs):
-        """
-        Create a Issue
-        """
-        if "image" in request.data:
-            request.data['image'] = request.data['imageSrc']
-            
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
     @action(detail=True, methods=['post'], name='Issue Rate',
             url_path='rate', url_name='rate')
     def rate(self, request, slug=None):  # pylint:disable=unused-argument
