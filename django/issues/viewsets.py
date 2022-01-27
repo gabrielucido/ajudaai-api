@@ -41,7 +41,7 @@ class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
     lookup_field = 'slug'
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = IssueFilter
-
+    ordering_fields = ['-created_at']
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -58,7 +58,7 @@ class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
         Upvote or Downvote a issue.
         """
         issue = self.get_object()
-        upvote = request.data.get__name__('upvote', None)
+        upvote = request.data.get('upvote', None)
         token = request.data.get('token', None)
         if upvote is None or token is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)

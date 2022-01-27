@@ -14,9 +14,8 @@ class Issue(BaseFields):
                              null=False, blank=False)
     description = models.CharField(verbose_name='Descrição', max_length=255,
                                    null=True, blank=False)
-    image = models.ImageField(upload_to='reports/%Y/%m/%d/',
-                              blank=True,
-                              null=True)
+    image = models.TextField(verbose_name='Imagem', blank=True,
+                             null=True)
     visible = models.BooleanField(verbose_name='Visível', blank=True,
                                   null=False, default=True)
     slug = AutoSlugField(populate_from='title',
