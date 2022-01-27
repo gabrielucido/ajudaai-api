@@ -1,0 +1,37 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+        - master
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup dotenv
+        run: |
+            cp .env.sample .env
+
+      - name: Run server
+        run: |
+            docker-compose build
+            docker-compose down
+            docker-compose up -d
+
+      - name: Checkout front-end
+        uses: actions/checkout@v2
+        with:
+          repository: gabrielucido/ajudaai-frontend
+          path: frontend
+
+      - name: Run front-end server
+        run: |
+            cd frontend
+            npm install
+            npm run build
+            npm run serve

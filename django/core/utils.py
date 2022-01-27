@@ -1,5 +1,3 @@
-import os
-
 from rest_framework import exceptions
 
 from django.core.exceptions import ValidationError
