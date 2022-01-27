@@ -16,7 +16,7 @@ router.register(r'token-anon', CreateAnonUser, basename='token-anon')
 # router.register(r'comments', CommentaryViewSet, basename='commentary')
 
 urlpatterns = [
-    path('', include('users.urls')),
+    path('ajudaai/v1/', include('users.urls')),
     path('ajudaai/v1/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
