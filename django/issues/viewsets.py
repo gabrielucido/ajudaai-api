@@ -116,8 +116,6 @@ class IssueViewSet(viewsets.ModelViewSet):  # pylint:disable=too-many-ancestors
                 all_issues_parsed[issue].title = unidecode(all_issues_parsed[issue].title.lower())
                 all_issues_parsed[issue].description = unidecode(all_issues_parsed[issue].description.lower())
 
-            #get results
-            print(result_query)
             # search_results = watson.search(result_query, ranking=True)
 
             search_results = watson.filter(all_issues_parsed, result_query, ranking=True)

@@ -1,4 +1,3 @@
-
 import re
 from unidecode import unidecode
 
@@ -19,6 +18,7 @@ class CreateAnonUser(viewsets.GenericViewSet, viewsets.mixins.CreateModelMixin):
     """
     queryset = User.objects.all()
     serializer_class = CreateAnonUserSerializer
+
     def create(self, request, *args, **kwargs):
         """
         Create anon user and return id and auth token.

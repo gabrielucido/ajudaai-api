@@ -36,6 +36,7 @@ class Issue(BaseFields):
         """
         Model Options.
         """
+        ordering = ['-created_at']
         verbose_name = 'Problema'
         verbose_name_plural = 'Problemas'
 
