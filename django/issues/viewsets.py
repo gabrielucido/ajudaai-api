@@ -19,8 +19,8 @@ class IssueFilter(filters.FilterSet):
     """
     title = filters.CharFilter(field_name="title", lookup_expr="icontains", label="Titulo da Issue")
     description = filters.CharFilter(field_name="description", lookup_expr="icontains", label="Descrição")
-    start_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="gt", label="Data de inicio")
-    end_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="lt", label="Data final")
+    start_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="date__gt", label="Data de inicio")
+    end_date = filters.DateTimeFilter(field_name="created_at", lookup_expr="date__lt", label="Data final")
 
     class Meta:
         """
